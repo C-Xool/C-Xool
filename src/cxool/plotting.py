@@ -50,6 +50,7 @@ class ScalarFormat(matplotlib.ticker.ScalarFormatter):
         matplotlib.ticker.ScalarFormatter.__init__(
             self, useOffset=offset, useMathText=mathText
         )
+
     """
     Custom scalar formatter for colourbars and axes using a specific string format.
 
