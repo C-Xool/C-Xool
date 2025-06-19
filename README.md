@@ -19,7 +19,7 @@ This file is provided as-is, without any warranty.
 1. [Introduction](#introduction)
 2. [Developers](#developers)
 3. [Installing C-Xool](#installing-c-xool)
-    - [Installation using Mamba (recommended)](#installation-using-mamba-recommended)
+    - [Installation using Mamba and pip (recommended)](#installation-using-mamba-and-pip-recommended)
     - [Required Python libraries](#required-python-libraries)
 4. [Architecture](#architecture)
 5. [Execution](#execution)
@@ -69,10 +69,10 @@ If you have questions, comments, or feedback, contact [**cargaezg@iingen.unam.mx
 
 ## Installing C-Xool
 
-### Installation using Mamba (recommended)
+### Installation using Mamba and pip (recommended)
 
 ```bash
-mamba create -n cxool
+mamba create -n cxool python
 mamba activate cxool
 pip install cxool
 ```

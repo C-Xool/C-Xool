@@ -32,6 +32,14 @@ cxool = "cxool.cxool_cli:main"
 
 [tool.hatch.build]
 sources = ["src"]
+include = [
+    "README.md",
+    "README.html",
+    "LICENSE",
+    "pytest.ini",
+    "src/cxool/examples/**",
+    "src/cxool/tests/**"
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/cxool"]
