@@ -1,19 +1,32 @@
+"""
+This unit test verifies that the interpolation function interpolate_to_grid()
+from cxool.interpolation module works correctly by creating a mock input NetCDF dataset,
+running the interpolation, and checking that the output file is generated.
+
+It does:
+    1.- Generates a dummy grid that fulfils with ROMS requirements.
+    2.- Generates dummy values for 'msl' and 'wind'.
+    3.- Calls function interpolate_to_grid.
+    4.- Checks the output file is properly produced.
+Authors:
+     Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
+Project: C-Xool – ERA5 to ROMS forcing preparation toolbox
+License: GNU GPL v3
+"""
+
 import warnings
 
 import numpy as np
-import pytest
 import xarray as xr
-
 from cxool.interpolation import interpolate_to_grid
 from cxool.specifications import ERA5SpecSL, ROMSSpecScalar
 
 warnings.filterwarnings("ignore", message="numpy.ndarray size changed")
-"""
-This test verifies that the interpolation function interpolate_to_grid() from your cxool.interpolation module works correctly by creating a mock input NetCDF dataset, running the interpolation, and checking that the output file is generated.
-"""
 
 
 class TestingGrid:
+    """Generates a ROMS dummy grid correctly."""
+
     lat_rho = xr.DataArray(
         np.linspace(0, 1, 4).reshape(4, 1).repeat(5, axis=1), dims=("eta_rho", "xi_rho")
     )
@@ -24,6 +37,8 @@ class TestingGrid:
 
 
 def test_interpolation_function(tmp_path):
+    """Generates a set of dummy data to interpolate and verifies the interpolation,
+    and the generation of the output file."""
     grid = TestingGrid()
     dummy_ds = xr.Dataset(
         {
@@ -51,10 +66,9 @@ def test_interpolation_function(tmp_path):
         memory_chunks=None,
     )
 
-    with xr.open_dataset(tmp_path/"out.nc") as dummy:
-        d_lat=dummy.lat
-        d_lon=dummy.lon
-        d_pair=dummy.Pair
+    with xr.open_dataset(tmp_path / "out.nc") as dummy:
+        d_pair = dummy.Pair
+
     assert (tmp_path / "out.nc").exists()
-    assert d_pair[0].shape==grid.lat_rho.shape
-    assert d_pair[0].shape==grid.lon_rho.shape
+    assert d_pair[0].shape == grid.lat_rho.shape
+    assert d_pair[0].shape == grid.lon_rho.shape

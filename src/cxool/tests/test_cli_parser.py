@@ -1,15 +1,25 @@
-import sys
+"""
+Unit tests to check that the command-line argument parser (CXoolArgumentParser)
+correctly interprets and stores input when given the minimum required arguments.
 
-import pytest
+This test verifies that three things:
+1.- Passing the grid name.
+2.- Passing the initital date.
+3.- Passing the final date.
+
+Authors:
+     Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
+Project: C-Xool – ERA5 to ROMS forcing preparation toolbox
+License: GNU GPL v3
+"""
+
+import sys
 
 from cxool.cxool_cli import CXoolArgumentParser
 
-"""
-This test checks that your command-line argument parser (CXoolArgumentParser) correctly interprets and stores input when given the minimum required arguments.
-"""
-
 
 def test_parser_minimal_arguments(monkeypatch):
+    """Verifies properly parsing."""
     testing_args = ["-a", "grid.nc", "-b", "1983-10-25", "-c", "1983-10-27"]
     monkeypatch.setattr(sys, "argv", ["cxool"] + testing_args)
     parser = CXoolArgumentParser()
