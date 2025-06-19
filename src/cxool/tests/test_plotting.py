@@ -1,18 +1,29 @@
-import os
+"""
+Unit tests to verify that the plot_variables() function in your cxool.plotting module
+successfully generates plot image files when provided with minimal, synthetic data.
+
+It does:
+    1. Generates a dummy dataset with scalar and vector fields ('Pair', 'Uwind', 'Vwind').
+    2. Defines ROMS variable specifications using ERA5 metadata.
+    3. Calls plot_variables().
+    4. Verifies that PNG output files are written to the expected output folders.
+
+Authors:
+     Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
+Project: C-Xool – ERA5 to ROMS forcing preparation toolbox
+License: GNU GPL v3
+"""
 
 import numpy as np
 import xarray as xr
 from cartopy import crs as ccrs
-
 from cxool.plotting import plot_variables
 from cxool.specifications import ERA5SpecSL, ROMSSpecScalar, ROMSSpecVector
 
-"""
-This verifies that the plot_variables() function in your cxool.plotting module successfully generates plot image files when provided with minimal, synthetic data.
-"""
-
 
 def test_plot_variables(tmp_path):
+    """Generates a dummy data set to plot and verifies that the plotting function works,
+    and that the files are generated."""
     time = [np.datetime64("1993-10-25T00")]
     scalar = np.random.rand(1, 4, 6)
 
@@ -43,8 +54,8 @@ def test_plot_variables(tmp_path):
     )
     specwind = ROMSSpecVector(
         [
-        ERA5SpecSL("u10", "10m_u_component_of_wind", "ms$^{-1}$"),
-        ERA5SpecSL("v10", "10m_v_component_of_wind", "ms$^{-1}$"),
+            ERA5SpecSL("u10", "10m_u_component_of_wind", "ms$^{-1}$"),
+            ERA5SpecSL("v10", "10m_v_component_of_wind", "ms$^{-1}$"),
         ],
         roms_name="Wind",
         roms_long_name="10 metre wind",
@@ -53,11 +64,10 @@ def test_plot_variables(tmp_path):
         roms_comp_names=["Uwind", "Vwind"],
         roms_comp_long_names=["10 metre U wind component", "10 metre V wind component"],
         plottype="speed",
-
     )
 
     plot_variables(
-        var_list_to_plot=[specpair,specwind],
+        var_list_to_plot=[specpair, specwind],
         loaded_file_to_plot=ds,
         discrete_colors=5,
         homogenise_lims=True,
