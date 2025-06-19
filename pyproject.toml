@@ -12,7 +12,7 @@ authors = [
     { name = "María Eugenia Allende Arandia", email = "mallendea@iingen.unam.mx" },
     { name = "Christian Mario Appendini Albrechtsen", email = "cappendinia@iingen.unam.mx" }
 ]
-readme = "README.md"
+readme = "src/cxool/README.md"
 license = { text = "MIT" }
 requires-python = ">=3.8"
 dependencies = [
@@ -33,8 +33,8 @@ cxool = "cxool.cxool_cli:main"
 [tool.hatch.build]
 sources = ["src"]
 include = [
-    "README.md",
-    "README.html",
+    "src/cxool/README.md",
+    "src/cxool/README.html",
     "LICENSE",
     "pytest.ini",
     "src/cxool/examples/**",
