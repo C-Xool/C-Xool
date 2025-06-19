@@ -145,10 +145,10 @@ We have provided a set of unit tests to assess:
 - The plotting of dummy scalar and vectorial variables.
 - The execution of real downloading data, real interpolating onto a provided grid and compared to a reference provided forcing file.
 
-To execute go to the folder where the `tests` folder is contained. Then execute:
+To execute go inside the folder `tests`. Then execute:
 
 ```bash
-pytest tests -v
+pytest . -v
 ```
 
 
