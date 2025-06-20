@@ -1104,7 +1104,7 @@ PIO_I2C_Preq = 65                 ! Maximum pending I2C requests
 
 ! Input NetCDF file names, [1:Ngrids].
 
-     GRDNAME == /home/carlos/checking_cxool_post_review/ROMS/data/inluum_grid.nc
+     GRDNAME == /PATH/TO/THE/FOLDER/ROMS/data/inluum_grid.nc
  
      ININAME == roms_ini.nc
      ITLNAME == roms_itl.nc
@@ -1194,7 +1194,7 @@ PIO_I2C_Preq = 65                 ! Maximum pending I2C requests
 
      NFFILES == 1                          ! number of unique forcing files
 
-     FRCNAME == /home/carlos/checking_cxool_post_review/ROMS/data/roms_frc.nc
+     FRCNAME == /PATH/TO/THE/FOLDER/ROMS/data/roms_frc.nc
                ! forcing file 1, grid 1
 
 ! Output NetCDF file names, [1:Ngrids].
