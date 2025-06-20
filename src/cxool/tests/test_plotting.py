@@ -10,7 +10,7 @@ It does:
 
 Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
-Project: C-Xool – ERA5 to ROMS forcing preparation toolbox
+C-Xool: ERA5 Atmospheric Boundary Conditions Toolbox for Ocean Modelling with ROMS.
 License: GNU GPL v3
 """
 

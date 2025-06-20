@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CXool – V1: Oceanographic exploration,
-is a program to prepare the grid domain with the Atmospheric forcing,
-to carry on with ocean modelling in ROMS. equations.
+C-Xool: ERA5 Atmospheric Boundary Conditions Toolbox for Ocean Modelling with ROMS.
+This is a program to prepare the grid domain with the atmospheric forcing,
+to perform ocean simulations using the ROMS model.
 
  -> This is a free software; you can redistribute it and/or
  -> modify it under the terms of the GNU General Public License
@@ -19,7 +19,7 @@ to carry on with ocean modelling in ROMS. equations.
  -> Bibliography attached to the corresponding publication.
  Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
-     To report bugs, questions, critics or just greetings, please use:
+     To report bugs, questions, feedback or just greetings, please use:
          cargaezg@iingen.unam.mx
 """
 
@@ -41,7 +41,7 @@ def interpolate_to_grid(
         ref_date (str): Reference date used to compute the days number in the NetCDF file.
         variable_list (dict): Dictionary mapping variable names to their ERA5 specifications.
         ts_paths (dict): Dictionary mapping variable names to their corresponding ERA5 NetCDF files.
-        memory_chunks (dict): Chunk sizes to use when loading datasets with xarray.
+        memory_chunks (int): Chunk sizes to use when loading datasets with xarray.
 
     Returns:
         None: The function writes output directly to the specified NetCDF file.

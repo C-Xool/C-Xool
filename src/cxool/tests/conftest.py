@@ -1,3 +1,8 @@
+"""
+Pytest configuration for C-Xool test suite.
+Handles warnings.
+"""
+
 import warnings
 
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-CXool – V1: Oceanographic exploration,
-is a program to prepare the grid domain with the Atmospheric forcing,
-to carry on with ocean modelling in ROMS. equations.
+C-Xool: ERA5 Atmospheric Boundary Conditions Toolbox for Ocean Modelling with ROMS.
+This is a program to prepare the grid domain with the atmospheric forcing,
+to perform ocean simulations using the ROMS model.
 
  -> This is a free software; you can redistribute it and/or
  -> modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@ to carry on with ocean modelling in ROMS. equations.
  -> Bibliography attached to the corresponding publication.
  Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
-     To report bugs, questions, critics or just greetings, please use:
+     To report bugs, questions, feedback or just greetings, please use:
          cargaezg@iingen.unam.mx
 """
 
@@ -65,9 +65,9 @@ class CXoolArgumentParser:
         parser0 = argparse.ArgumentParser(
             prog="C-Xool",
             description="Oceanographic exploration - \
-                            prepare the grid domain with the Atmospheric forcing, \
-                            to carry on with ocean modelling in ROMS. equations",
-            epilog="To report bugs, questions, critics or just greetings, \
+                            prepare the grid domain with the atmospheric forcing, \
+                            to perform ocean simulations using the ROMS model.",
+            epilog="To report bugs, questions, feedback or just greetings, \
                             please use: cargaezg@iingen.unam.mx. \
                             C-Xool was designed and developed at \
                             the Coastal Engineering and Processes Laboratory \
@@ -97,7 +97,7 @@ class CXoolArgumentParser:
             description="Oceanographic exploration – \
                     prepares the grid domain with atmospheric forcing \
                     to use in ROMS ocean modelling.",
-            epilog="To report bugs, questions, critics or just greetings, \
+            epilog="To report bugs, questions, feedback or just greetings, \
                             please use: cargaezg@iingen.unam.mx. \
                             C-Xool was designed and developed at \
                             the Coastal Engineering and Processes Laboratory \
@@ -416,19 +416,19 @@ class CXool:
         Initialise the C-Xool main class to prepare ERA5 atmospheric forcing for ROMS.
 
         Args:
-            grid (str or Path): Path to the ROMS grid NetCDF file.
+            grid (str): Path to the ROMS grid NetCDF file.
             ini_date (str): Initial date in 'YYYY-MM-DD' format for data retrieval.
             fin_date (str): Final date in 'YYYY-MM-DD' format for data retrieval.
             interval (int): Temporal resolution in hours (e.g. 6 for 6-hourly data).
             ref_date (str): Reference date used to compute the days number in the NetCDF file.
-            variable_list (dict): Dictionary specifying ERA5 variables to retrieve and interpolate.
-            data_storage (str or Path): Path where raw ERA5 data will be saved.
-            output_folder (str or Path): Path where the final interpolated file will be saved.
-            plots_folder (str or Path): Path to save optional diagnostic plots.
+            variable_list (str, list): Specifies ERA5 variables to retrieve and interpolate.
+            data_storage (str): Path where raw ERA5 data will be saved.
+            output_folder (str): Path where the final interpolated file will be saved.
+            plots_folder (str): Path to save optional diagnostic plots.
             data_subfolder (str): Subfolder structure within `data_storage` for organisation.
             plot_format (str): File format for plots (e.g. "png", "eps, "pdf", "svg").
-            memory_chunks (dict): Dictionary defining chunk sizes for xarray/dask processing.
-            out_config (str or Path): Path to the output configuration or log file.
+            memory_chunks (int): Chunk sizes for xarray/dask processing.
+            out_config (str): Path to the output configuration or log file.
         """
 
         self.data_storage = data_storage
@@ -639,12 +639,13 @@ def main():
     Parses command-line arguments using CXoolArgumentParser and initiates the processing
     pipeline. If an error occurs during parsing, it prints the error and exits with status 1.
     """
+    # pylint: disable=broad-exception-caught
+    # We want to keep here a broad exception because this will deal with the input parameters.
     try:
         cxa = CXoolArgumentParser(dbgargs)
     except Exception as e:
         print("Error: ", str(e))
         sys.exit(1)
-
     instructions = cxa.args
 
     ps = {
@@ -669,7 +670,6 @@ def main():
 
     grid = xr.open_dataset(instructions.grid_name)
 
-    # if any([not(w in grid.dims and w in grid.variables) for w in ["eta_rho","xi_rho"]]):
     if any(w not in grid.dims for w in ["eta_rho", "xi_rho"]):
         raise ValueError(
             "The provided grid does not contain required variables 'xi_rho' and 'eta_rho' \

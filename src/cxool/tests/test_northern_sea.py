@@ -11,7 +11,7 @@ It does:
 
  Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Aranda, Christian Mario Appendini
-     To report bugs, questions, critics or just greetings, please use:
+     To report bugs, questions, feedback or just greetings, please use:
          cargaezg@iingen.unam.mx
 """
 

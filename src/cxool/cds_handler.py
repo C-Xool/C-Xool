@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-CXool – V1: Oceanographic exploration,
-is a program to prepare the grid domain with the Atmospheric forcing,
-to carry on with ocean modelling in ROMS. equations.
+C-Xool: ERA5 Atmospheric Boundary Conditions Toolbox for Ocean Modelling with ROMS.
+This is a program to prepare the grid domain with the atmospheric forcing,
+to perform ocean simulations using the ROMS model.
 
  -> This is a free software; you can redistribute it and/or
  -> modify it under the terms of the GNU General Public License
@@ -18,9 +18,10 @@ to carry on with ocean modelling in ROMS. equations.
  -> Bibliography attached to the corresponding publication.
  Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
-     To report bugs, questions, critics or just greetings, please use:
+     To report bugs, questions, feedback or just greetings, please use:
          cargaezg@iingen.unam.mx
 """
+
 import datetime
 import os
 import sys
@@ -359,7 +360,7 @@ class CDSHandler:
 
     def __init__(self, data_storage=None):
         """
-        Initialise the CDSHandler.
+        Initialises the CDSHandler.
 
         Args:
             data_storage (str, optional): Absolute or relative path to store downloaded data.
@@ -385,15 +386,14 @@ class CDSHandler:
         Retrieve ERA5 data from the Climate Data Store (CDS) API.
 
         Args:
-            variable (str or list of str): Name(s) of the ERA5 variable(s) to retrieve.
-            year (int): Year of the data to download.
-            month (int, str or list, optional): Month(s) to retrieve. Default is all months.
-            day (int, str or list, optional): Day(s) to retrieve. Default is all days.
-            time (int, str or list, optional): Time(s) to retrieve (e.g., 0, 6, 12, 18).
-            Default is all hours.
-            area_nwse (list of float, optional): Geographic bounding box as
+            variable: Names of the ERA5 variables to retrieve.
+            year: Year of the data to download.
+            month: Months to retrieve. Default is all months.
+            day: Days to retrieve. Default is all days.
+            time: Times to retrieve (e.g., 0, 6, 12, 18).
+            area_nwse: Geographic bounding box as
             [North, West, South, East].
-            pressure_level (int, optional): Pressure level in hPa, if applicable.
+            pressure_level: Pressure level in hPa, if applicable.
 
         Returns:
             str: Absolute path to the downloaded NetCDF file.
@@ -421,8 +421,6 @@ class CDSHandler:
             month = _allmonths
         elif isinstance(month, int):
             month = f"{month:02}"
-        # elif isinstance(month, str):
-        #    month = month
         else:
             month = [f"{i:02}" if isinstance(i, int) else i for i in month]
 
@@ -436,8 +434,6 @@ class CDSHandler:
             day = _alldays
         elif isinstance(day, int):
             day = f"{day:02}"
-        # elif isinstance(day, str):
-        #    day = day
         else:
             day = [f"{i:02}" if isinstance(i, int) else i for i in day]
 
@@ -449,15 +445,12 @@ class CDSHandler:
             time = _allhours
         elif isinstance(time, int):
             time = f"{time:02}:00"
-        # elif isinstance(time, str):
-        #    time = time
         else:
             time = [f"{i:02}:00" if isinstance(i, int) else i for i in time]
 
         assert all(h in _allhours for h in ([time] if isinstance(time, str) else time))
 
         if area_nwse is None:
-            # area = None
             str_area = "90_-180_-90_180"
         else:
             str_area = "_".join([str(i) for i in area_nwse])
@@ -514,14 +507,13 @@ class CDSHandler:
         try:
             c = cdsapi.Client()
         # pylint: disable=broad-exception-caught
+        # This exception has to be broad. It is checking if the user has set their account.
         except Exception as e:
             print(
                 "Unexpected error while creating CDSAPI client. Did you set up your access token?"
             )
             print(repr(e))
             sys.exit(1)
-        # pylint: disable=broad-exception-caught
-        # This exception has to be broad. It is checking if the user has set their account.
 
         c.retrieve(_dataset, options, ofpath)
 
@@ -537,7 +529,7 @@ class CDSHandler:
             variable (str): ERA5 variable name to retrieve.
             t0 (str): Initial date in 'YYYY-MM-DD' format.
             t1 (str): Final date in 'YYYY-MM-DD' format.
-            area (list of float, optional): Bounding box [N, W, S, E]. Defaults to global.
+            area (list of float): Bounding box [N, W, S, E].
             interval (int, optional): Hourly interval (e.g. 6 for 6-hourly data).
             pressure_level (int, optional): Pressure level if applicable.
         Returns:

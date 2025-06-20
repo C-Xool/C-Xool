@@ -4,13 +4,13 @@ from cxool.interpolation module works correctly by creating a mock input NetCDF 
 running the interpolation, and checking that the output file is generated.
 
 It does:
-    1.- Generates a dummy grid that fulfils with ROMS requirements.
+    1.- Generates a dummy grid that fulfils ROMS requirements.
     2.- Generates dummy values for 'msl' and 'wind'.
     3.- Calls function interpolate_to_grid.
     4.- Checks the output file is properly produced.
 Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
-Project: C-Xool – ERA5 to ROMS forcing preparation toolbox
+C-Xool: ERA5 Atmospheric Boundary Conditions Toolbox for Ocean Modelling with ROMS.
 License: GNU GPL v3
 """
 

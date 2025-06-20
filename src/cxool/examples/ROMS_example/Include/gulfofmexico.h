@@ -5,7 +5,7 @@ This script shows how to run C-Xool from the command line using real options,
 with a specified grid, time interval, and list of ERA5 variables.
  Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Aranda, Christian Mario Appendini
-     To report bugs, questions, critics or just greetings, please use:
+     To report bugs, questions, feedback or just greetings, please use:
          cargaezg@iingen.unam.mx
 *******************************************************************************
 **

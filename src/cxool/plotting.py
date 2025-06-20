@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-CXool – V1: Oceanographic exploration,
-is a program to prepare the grid domain with the Atmospheric forcing,
-to carry on with ocean modelling in ROMS. equations.
+C-Xool: ERA5 Atmospheric Boundary Conditions Toolbox for Ocean Modelling with ROMS.
+This is a program to prepare the grid domain with the atmospheric forcing,
+to perform ocean simulations using the ROMS model.
 
  -> This is a free software; you can redistribute it and/or
  -> modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@ to carry on with ocean modelling in ROMS. equations.
  -> Bibliography attached to the corresponding publication.
  Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
-     To report bugs, questions, critics or just greetings, please use:
+     To report bugs, questions, feedback or just greetings, please use:
          cargaezg@iingen.unam.mx
 """
 import os
@@ -37,7 +37,7 @@ from .specifications import ROMSSpecScalar, ROMSSpecVector
 
 class ScalarFormat(matplotlib.ticker.ScalarFormatter):
     """
-    Custom scalar formatter for colourbars and axes using a specific string format.
+    Scalar formatter for Matplotlib axes and colourbars with custom string format.
 
     Args:
         fformat (str): Format string, e.g., "%1.1f".
@@ -50,15 +50,6 @@ class ScalarFormat(matplotlib.ticker.ScalarFormatter):
         matplotlib.ticker.ScalarFormatter.__init__(
             self, useOffset=offset, useMathText=mathText
         )
-
-    """
-    Custom scalar formatter for colourbars and axes using a specific string format.
-
-    Args:
-        fformat (str): Format string, e.g., "%1.1f".
-        offset (bool): Whether to use offset in tick labels.
-        mathText (bool): Whether to use math text formatting.
-    """
 
 
 def get_cmap_limits(data):
@@ -149,14 +140,14 @@ def plot_variables(
     Generate plots for a list of scalar or vector variables from a loaded dataset.
 
     Args:
-        var_list_to_plot (dict): Dictionary of variable specifications.
+        var_list_to_plot (list): List of variable specifications.
         loaded_file_to_plot (xarray.Dataset): Dataset with model output.
         discrete_colors (int): Number of discrete colour levels.
         homogenise_lims (bool): Whether to use shared colour limits for all plots.
         interval (int): Time interval for selecting frames to plot.
         projected_coords (tuple): Tuple of projected coordinates (x, y).
         projection (str): Map projection type.
-        var_angle (float or ndarray): Rotation angle of vector fields.
+        var_angle (ndarray): Rotation angle of vector fields.
         scale_factor (float): Scale for quiver arrows.
         arrowdensity (int): Arrow spacing for vector fields.
         output_folder (str): Base directory for saving outputs.
@@ -261,7 +252,7 @@ def plot_single_variable(
     Generate and save a sequence of plots for a single variable across time.
 
     Args:
-        spec (object): Variable specification, defining plotting attributes (e.g., name, label,
+        spec (dict): Variable specification, defining plotting attributes (e.g., name, label,
         type).
         var_to_plot_01 (xarray.DataArray or tuple): Data array for scalar or tuple of (u, v)
         components for vector data.
@@ -279,7 +270,7 @@ def plot_single_variable(
         plot_format (str): File format for saved plots (e.g., 'png', 'pdf').
 
     Returns:
-        None. The function saves the plots to disk.
+        Plots that are saved to disk.
     """
 
     time_data, scalar_data, vector_data = data_to_plot(
@@ -350,12 +341,6 @@ def plot_single_variable(
             level_boundaries_geo_var = level_boundaries_geo_var0
             tick_values = tick_values0
         else:
-            # lim_inf=np.nanmin(scalar_data[t])
-            # lim_sup=np.nanmax(scalar_data[t])
-            # if np.isclose(lim_inf,lim_sup) or (lim_sup - lim_inf) < 1e-2:
-            #    raise ValueError(f"The variable '{spec.roms_name}' at time index {t}"
-            #        " has very small values. Consider using option --homogenise-limits.")
-
             limits = get_cmap_limits(scalar_data[t])
 
             level_boundaries_geo_var = np.linspace(*limits, levelsgeovar)

@@ -4,12 +4,12 @@ correctly interprets and stores input when given the minimum required arguments.
 
 This test verifies that three things:
 1.- Passing the grid name.
-2.- Passing the initital date.
+2.- Passing the initial date.
 3.- Passing the final date.
 
 Authors:
      Carlos Argáez, Simon Klüpfel, María Eugenia Allenda Arandía, Christian Mario Appendini
-Project: C-Xool – ERA5 to ROMS forcing preparation toolbox
+C-Xool: ERA5 Atmospheric Boundary Conditions Toolbox for Ocean Modelling with ROMS.
 License: GNU GPL v3
 """
 
